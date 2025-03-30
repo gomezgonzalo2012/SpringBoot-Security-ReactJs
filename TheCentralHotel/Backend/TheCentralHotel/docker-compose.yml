@@ -27,8 +27,8 @@ services:
       - DB_URL=jdbc:mysql://the_central_db:3306/the_central?createDatabaseIfNotExist=true&serverTimezone=UTC
       - DB_USER_NAME=root
       - DB_PASSWORD=42742379
-      - CLOUDINARY_HOST_NAME=gonza42742
-      - CLOUDINARY_API_SECRET=jn9vyusi_RkYIvQ1_jIgeZ3JS6U
-      - CLOUDINARY_API_KEY=672227968744658
+      - CLOUDINARY_HOST_NAME=#
+      - CLOUDINARY_API_SECRET=#
+      - CLOUDINARY_API_KEY=#
 
     
