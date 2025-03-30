@@ -10,7 +10,7 @@ import LoginPage from './component/auth/LoginPage'
 import RegisterPage from './component/auth/RegisterPage'
 import ProfilePage from './component/profile/ProfilePage'
 import EditProfilePage from './component/profile/EditProfilePage'
-import { ProtectedRoute, AdminRoute } from './service/guard';
+import { ProtectedRoute, AdminRoute } from './service/Guard.jsx'
 import NotFoundPage from './component/common/NotFoundPage'
 import ManageBookingPage from './component/admin/ManageBookingPage'
 import ManageRoomPage from './component/admin/ManageRoomPage'
@@ -18,6 +18,7 @@ import AdminPage from './component/admin/AdminPage'
 import AddRoomPage from './component/admin/AddRoomPage'
 import EditRoomPage from './component/admin/EditRoomPage'
 import EditBookingPage from './component/admin/EditBookingPage'
+import { ToastContainer } from 'react-toastify'
 
 
 
@@ -28,6 +29,7 @@ function App() {
       <div className="App">
         <Navbar/>
         <div className="content">
+          <ToastContainer />
           <Routes>
             {/* Public routes */}
             <Route exact path={"/home"} element={<HomePage/> }/>

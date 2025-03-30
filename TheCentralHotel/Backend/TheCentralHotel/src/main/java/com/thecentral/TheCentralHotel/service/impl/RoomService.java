@@ -62,6 +62,9 @@ public class RoomService implements IRoomService{
     public ResponseDto getAllRooms() {
         ResponseDto response = new ResponseDto();
         try {
+            /*public Page<Contact> getAllContacts(int page, int size) {
+            return contactRepo.findAll(PageRequest.of(page, size, Sort.by("name")));
+            } */
             // se ordena de menor a mayor segun id (es IDENTITY entoces ordena del mar reciente al mas viejo)
             List<Room> roomlist = roomRepository.findAll(Sort.by(Sort.Direction.DESC, "id")); 
             List<RoomDto> roomDtolist = Utils.mapRoomListToRoomDtoList(roomlist);

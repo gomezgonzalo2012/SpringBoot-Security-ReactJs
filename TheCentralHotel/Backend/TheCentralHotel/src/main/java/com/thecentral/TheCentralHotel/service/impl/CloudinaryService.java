@@ -21,7 +21,7 @@ import com.thecentral.TheCentralHotel.service.interfaces.ICloudinaryService;
 public class CloudinaryService implements ICloudinaryService{
 
     @Autowired
-    private Cloudinary cloudinary; // importado gracias al bean creado 
+    private Cloudinary cloudinary; // importado gracias al bean creado
 
     @SuppressWarnings("unchecked") // quita una advertencia
     @Override
@@ -37,7 +37,7 @@ public class CloudinaryService implements ICloudinaryService{
         );
 
         try {
-            Map<String, Object> resultUpload = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("folder", "centralHotel")); // lo gaurda en la carpeta centralHotel creada en cloudinary 
+            Map<String, Object> resultUpload = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("folder", "centralHotel")); // lo gaurda en la carpeta centralHotel creada en cloudinary
             String imageUrl = resultUpload.get("secure_url").toString();
             return imageUrl;
 
@@ -45,6 +45,6 @@ public class CloudinaryService implements ICloudinaryService{
             throw new OurException("Unable to upload the file, "+e.getMessage());
         }
     }
-    
+
 
 }

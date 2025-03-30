@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import APIService from '../../service/APIService'
+import  {toastSuccess} from "../../service/ToastService"
 
 const RegisterPage = () => {
     const [email, setEmail] = useState("")
@@ -9,18 +10,16 @@ const RegisterPage = () => {
     const [name, setName] = useState("")
     const [phoneNumber, setPhoneNumber] = useState("")
     const [error, setError] = useState("")
-    const [successMessage, setSuccessMessage] = useState("")
     const navigate = useNavigate()
 
     const handleSubmit =async (e)=>{
         e.preventDefault()
-        debugger;
         validateInput()
         try{
             if(passwordMatch()){
                 const response = await APIService.register({email, password, name, phoneNumber}) // 
                 if(response.statusCode ===200){
-                    setSuccessMessage("User successfully registered")
+                    toastSuccess("User successfully registered")
                     
                     setTimeout(()=>{
                         navigate("/login") 
@@ -45,14 +44,13 @@ const RegisterPage = () => {
         }
     }
     const passwordMatch = ()=>{
-        debugger;
+
         return confirmPassword===password
     }
   return (
       <div className="auth-container">
-          <h2>Login</h2>
+          <h2>Register</h2>
           {error && <p className='error-message'>{error}</p>}
-          {successMessage && <p className='success-message'>{successMessage}</p>}
           <form onSubmit={handleSubmit}>
               <div className="form-group">
                   <label >Email: </label>

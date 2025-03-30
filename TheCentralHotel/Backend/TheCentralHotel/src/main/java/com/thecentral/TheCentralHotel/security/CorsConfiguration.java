@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfiguration {
 
     @Bean 
-    public WebMvcConfigurer webMvcConfigurer(){ // retorna un objeto que imlementa la interfaz WebMvcConfigurer
+    public WebMvcConfigurer webMvcConfigurer(){ // retorna un objeto que implementa la interfaz WebMvcConfigurer
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry){ // por lo de arriba debe sobreescribirse este metodo

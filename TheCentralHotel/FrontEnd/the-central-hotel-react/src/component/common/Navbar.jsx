@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import APIService from "../../service/APIService";
 
 const Navbar = () =>{
@@ -37,9 +37,10 @@ const Navbar = () =>{
 
                 {!isAuthenticated &&  <li><NavLink to="/register" activeclass="active ">Register</NavLink></li>}
 
-                {isAuthenticated && <li onClick={handleLogout}>Logout</li>}
+                {isAuthenticated && <li onClick={handleLogout}><Link>Logout</Link></li>}
                 
             </ul>
+           
         </nav>
     )
 }

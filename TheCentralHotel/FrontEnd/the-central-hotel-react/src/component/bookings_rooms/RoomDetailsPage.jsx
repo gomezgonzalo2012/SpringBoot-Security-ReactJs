@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import {useParams, useNavigate, useNavigation} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import APIService from "../../service/APIService"
 import DatePicker from "react-datepicker"
 
@@ -73,21 +73,21 @@ const RoomDetailsPage = () =>  {
   const acceptingBook = async ()=>{
     try {
       const startDate = new Date(checkInDate)
-    const endDate = new Date(checkOutDate)
+      const endDate = new Date(checkOutDate)
 
     // Log the original dates for debugging
-    console.log("Original Check-in Date:", startDate);
-    console.log("Original Check-out Date:", endDate);
+      console.log("Original Check-in Date:", startDate);
+      console.log("Original Check-out Date:", endDate);
     
     // Convert dates to YYYY-MM-DD format, adjusting for time zone differences
-    const formattedCheckInDate = new Date(startDate.getTime() - (startDate.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
-    const formattedCheckOutDate = new Date(endDate.getTime() - (endDate.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+      const formattedCheckInDate = new Date(startDate.getTime() - (startDate.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+      const formattedCheckOutDate = new Date(endDate.getTime() - (endDate.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
 
       // Log the original dates for debugging
-    console.log("Formated Check-in Date:", formattedCheckInDate);
-    console.log("Formated Check-out Date:", formattedCheckOutDate);
+      console.log("Formated Check-in Date:", formattedCheckInDate);
+      console.log("Formated Check-out Date:", formattedCheckOutDate);
 
-    // Onjeto booking
+    // Objeto booking
 
     const booking = {
       checkInDate : formattedCheckInDate,
@@ -105,7 +105,7 @@ const RoomDetailsPage = () =>  {
         // despues de 5s de salvar el Booking redirije a rooms
         setTimeout(()=>{
           setShowMessage(false)
-          navigate("/room")
+          navigate("/rooms")
         }, 5000)
       }
     
@@ -120,7 +120,7 @@ const RoomDetailsPage = () =>  {
   if(error) return <p className="room-detail-loading">{error} </p>
   if(!roomDetails) return <p className="room-detail-loading">Room not found </p>
 
-  const { roomType, roomPrice, roomPhotoUrl, description, bookings } = roomDetails;
+  const { roomType, roomPrice, roomPhotoUrl, roomDescription, bookings } = roomDetails;
   
 
   return (
@@ -142,7 +142,7 @@ const RoomDetailsPage = () =>  {
       <div className="room-details-info">
         <h3>{roomType}</h3>
         <p>Price : $ {roomPrice} /nigth</p>
-        <p>{description}</p>
+        <p>{roomDescription}</p>
       </div>
       {bookings && bookings.length > 0 && (
         <div>
@@ -151,8 +151,8 @@ const RoomDetailsPage = () =>  {
             {bookings.map((booking, index) => (
               <li key={booking.id} className="booking-item">
                 <span className="booking-number" >{index + 1}</span>
-                <span className="booking-text" >Check-in: {booking.checkInDate}</span>
-                <span className="booking-text" >Out: {booking.checkOutDate}</span>
+                <span className="booking-text" > Check-in: {booking.checkInDate}</span>
+                <span className="booking-text" > Out: {booking.checkOutDate}</span>
               </li>
             ))}
           </ul>
@@ -169,10 +169,11 @@ const RoomDetailsPage = () =>  {
             selected={checkInDate}
             onChange={(date)=> setCheckInDate(date)}
             selectsStart 
+            minDate={new Date()}
             startDate={checkInDate}
             endDate={checkOutDate}
             placeholderText="Check-in Date"
-            dateFormat={dd/MM/yyyy}
+            dateFormat={"dd/MM/yyyy"}
             //dateFormat={yyyy-MM-dd}
             />
 
@@ -188,7 +189,7 @@ const RoomDetailsPage = () =>  {
             minDate={checkInDate}
             // 
             placeholderText="Check-out Date"
-            dateFormat={dd/MM/yyyy}
+            dateFormat={"dd/MM/yyyy"}
             //dateFormat={yyyy-MM-dd}
             />
             <div className="gues-container">
@@ -206,7 +207,7 @@ const RoomDetailsPage = () =>  {
                   value={numOfChildren}
                   onChange={(e) => setNumOfChildren(parseInt(e.target.value))} />
               </div>
-              <button className="confirm-button" onClick={handleConfirmBooking}></button>
+              <button className="confirm-button" onClick={handleConfirmBooking}>Continue</button>
             </div>
           </div>
         )}

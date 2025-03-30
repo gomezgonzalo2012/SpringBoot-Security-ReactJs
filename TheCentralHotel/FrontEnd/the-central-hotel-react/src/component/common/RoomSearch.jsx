@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import APIService from "../../service/APIService"
+import RoomTypeSelect from "./RoomTypeSelect"
 
 const RoomSearch =({handleSearchResult})=> {
     const [startDate, setStartDate] = useState(null)
@@ -49,8 +50,6 @@ const RoomSearch =({handleSearchResult})=> {
             const response = await APIService.getAvailableRoomsByDateAndType(formatedStartDate,formatedEndate, roomType )
             
             if(response.statusCode === 200){
-           debugger;
-
                 if(response.roomList.length<=0){
                     showError("Room Not Currently Available for the date range and room type")
                 }
@@ -72,6 +71,7 @@ const RoomSearch =({handleSearchResult})=> {
                     onChange = {(date) => setStartDate(date)}
                     dateFormat= "dd/MM/yyyy"
                     placeholderText="Select Check-in Date"
+                    minDate={new Date()} // fecha minima
                 />
             </div>
             <div className="search-field">
@@ -81,21 +81,15 @@ const RoomSearch =({handleSearchResult})=> {
                     onChange = {(date) => setEndDate(date)}
                     dateFormat= "dd/MM/yyyy"
                     placeholderText="Select Check-out Date"
+                    minDate={startDate} // minimo startDate
                 />
             </div>
             <div className="search-field">
-                <label>Room type</label>
-                <select value={roomType} onChange={(e)=>setRoomType(e.target.value)}>
-                    <option disable="true" value="">
-                        Select Room type
-                    </option>
-                    {roomTypes.map((roomType)=>(
-                        <option key={roomType} value={roomType}>
-                            {roomType}
-                        </option>
-                        
-                    ))}
-                </select>
+                <RoomTypeSelect  
+                    roomTypes={roomTypes} 
+                    selectedRoomType={roomType} 
+                    onChange={(e)=>setRoomType(e.target.value)}
+                />
             </div>
             <button className="home-search-button" onClick={handleInternalSearch}>
                     SearchRooms

@@ -18,4 +18,5 @@ public interface IRoomService {
     ResponseDto getRoomById(Long roomId);
     ResponseDto getAvailableRoomsByDatesAndTypes(LocalDate checkInDate, LocalDate checkOuDate, String roomType);
     ResponseDto getAllAvailableRooms();
+
 }

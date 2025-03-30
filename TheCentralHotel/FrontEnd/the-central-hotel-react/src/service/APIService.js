@@ -1,7 +1,7 @@
 import axios from "axios";
 export default class APIService{
-    static BASE_URL="http://localhost:4040";
-
+    static BASE_URL="http://localhost:8080";
+    
     static getHeader () {
         const token = localStorage.getItem("token")
         return {
@@ -33,15 +33,20 @@ export default class APIService{
     }
     static isAuthenticated(){
         const token = localStorage.getItem("token")
-        return !!token; // token != null
+        if(this.isTokenExpired(token)){
+            this.logOut();
+        }else{
+            return !!token; // token != null
+        }
     }
     static isAdmin(){
         const role = localStorage.getItem("role")
-        return role === "ADMIN"
+        return role === "ADMIN"  
     }
     static isUser(){
         const role = localStorage.getItem("role")
         return role === "USER"
+        
     }
 
     // USERS
@@ -71,7 +76,7 @@ export default class APIService{
     }
     // get user bookings by id
     static async getUsersBookings(userId){
-        debugger;
+        
         const response = await axios.get(`${this.BASE_URL}/users/get-user-bookings/${userId}`,{
             headers : this.getHeader() // adds the auth and content-type header
         })
@@ -89,7 +94,7 @@ export default class APIService{
 
     static async addRoom(formData){
         console.log(formData)
-        debugger;
+        
         const response = await axios.post(`${this.BASE_URL}/rooms/add`,formData,{
             headers : {
                 ...this.getHeader(),
@@ -169,5 +174,14 @@ export default class APIService{
         return  response.data;
     }
 
-   
+    static  isTokenExpired(token) {
+        if (!token) return true;
+    
+        const payload = JSON.parse(atob(token.split(".")[1])); // Decodificar el payload del JWT
+        const exp = payload.exp * 1000; // Convertir a milisegundos
+    
+        return Date.now() >= exp; // Comparar con la fecha actual
+    }
+
+    
 }

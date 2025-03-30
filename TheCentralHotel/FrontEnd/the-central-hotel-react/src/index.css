@@ -17,6 +17,7 @@
     color: #007F86;
     color: #007F86;
 }
+/* #43B276 */
 
 /* General Navbar Styling */
 .navbar {
@@ -443,7 +444,7 @@ button[type="submit"]:hover {
 }
 
 .all-room-filter-div label {
-    font-weight: 800;
+    font-weight: 600;
     font-size: 20px;
 
 }
@@ -640,16 +641,16 @@ button[type="submit"]:hover {
 .error-message {
     text-align: center;
     color: #b10505;
-    font-weight: 800;
-    font-size: 20px;
+    font-weight: 600;
+    font-size: 15px;
 
 }
 
 .success-message {
     text-align: center;
     color: #051fb1;
-    font-weight: 800;
-    font-size: 20px;
+    font-weight: 600;
+    font-size: 15px;
 
 }
 
@@ -1199,5 +1200,6 @@ h2 {
     .navbar-ul li a {
         display: block;
     }
+    
 
 }

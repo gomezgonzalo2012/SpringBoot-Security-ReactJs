@@ -26,6 +26,7 @@ const EditProfilePage =()=> {
             }
             const response = await APIService.deleteUser(user.id)
             if(response.statusCode === 200){
+                APIService.logOut()
               navigate("/register")
             }
         } catch (error) {

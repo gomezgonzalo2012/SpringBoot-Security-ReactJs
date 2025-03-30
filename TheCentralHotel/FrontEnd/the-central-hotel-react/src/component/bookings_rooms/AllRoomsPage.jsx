@@ -3,6 +3,7 @@ import APIService from "../../service/APIService"
 import Pagination from "../common/Pagination"
 import RoomSearch from "../common/RoomSearch";
 import RoomResult from "../rooms/RoomResult";
+import RoomTypeSelect from "../common/RoomTypeSelect";
 
 function AllRoomsPage() {
     const [rooms, setRooms] = useState([])
@@ -10,7 +11,7 @@ function AllRoomsPage() {
     const [roomTypes, setRoomTypes] = useState([])
     const [selectedRoomType, setSelectedRoomTypes] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
-    const [roomsPerPage] = useState(2)
+    const [roomsPerPage] = useState(5)
 
     //
     const handleSearchResult = (results)=>{
@@ -23,7 +24,7 @@ function AllRoomsPage() {
             try {
                 const response = await APIService.getAllRooms()
                 const allRooms = response.roomList;
-                console.log("all rooms: ", allRooms)
+                
                 setRooms(allRooms);
                 setFilteredRooms(allRooms);
             } catch (error) {
@@ -58,15 +59,9 @@ function AllRoomsPage() {
 
     //   Pagination  
     const indexOfLastRoom = currentPage * roomsPerPage;
-    console.log("indexOfLastRoom: ", indexOfLastRoom)
-
     const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
-    console.log("indexOfFirstRoom: ", indexOfFirstRoom)
-
     const currentRooms = filteredRooms.slice(indexOfFirstRoom, indexOfLastRoom);
-    console.log("current rooms: ", currentRooms)
-    console.log("current page: ", currentPage)
-    console.log("fleteres rooms: ", filteredRooms)
+    
 
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
@@ -74,15 +69,11 @@ function AllRoomsPage() {
     <div className="all-rooms">
         <h2>All Rooms</h2>
         <div className="all-room-filter-div">
-            <label > Select by Room Type:</label>
-            <select value={selectedRoomType} onChange={handleRoomTypeChange}>
-                <option value=''>All</option>
-                {roomTypes.map(type=>(
-                    <option key={type} value={type}>
-                        {type}
-                    </option>
-                ))}
-            </select>
+            <RoomTypeSelect  
+                roomTypes={roomTypes} 
+                selectedRoomType={selectedRoomType} 
+                onChange={handleRoomTypeChange}
+            />
         </div>
         <RoomSearch handleSearchResult={handleSearchResult}/>
         <RoomResult roomSearchResult={currentRooms}/>

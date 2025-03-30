@@ -6,6 +6,7 @@ const ProfilePage = () => {
 const navigate = useNavigate()
 const [user, setUser] = useState(null)
 const [error, setError] = useState("")
+
 useEffect(()=>{
   const fetchUserProfile= async ()=>{
     try {
@@ -46,13 +47,13 @@ const handleEditProfile= ()=>{
       <div className="bookings-section">
         <h3>My Booking History</h3>
         <div className='booking-list'>
-          {user && user.bookings.lenght > 0 ? (
+          {user && user.bookings.length> 0 ? (
             user.bookings.map(booking=>(
               <div key={booking.id} className="booking-item">
-                <p><strong>Booking Code:</strong> {booking.bookingConfirmationCode}</p>
+                <p><strong>Booking Code:</strong> {booking.bookingConfigurationCode}</p>
                 <p><strong>Check-in Date:</strong> {booking.checkInDate}</p>
                 <p><strong>Check-out Date:</strong> {booking.checkOutDate}</p>
-                <p><strong>Total Guests:</strong> {booking.totalNumOfGuest}</p>
+                <p><strong>Total Guests:</strong> {booking.numOfGuests}</p>
                 <p><strong>Room Type:</strong> {booking.room.roomType}</p>
                 <img src={booking.room.roomPhotoUrl} alt="Room" className="room-photo" />
               </div>

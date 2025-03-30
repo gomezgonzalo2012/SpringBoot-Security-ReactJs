@@ -37,6 +37,7 @@ public class JWTUtils {
     public String extractUsername(String token){
         return extractClaims(token, Claims :: getSubject); // referencia a metodo subject 
     }
+    
     private <T> T extractClaims(String token, Function<Claims, T> claimsTFunction){
         return claimsTFunction.apply(Jwts.parser().verifyWith(Key).build() // la funcion ejecutada por apply dependera del parametro Function <T,R>
                             .parseSignedClaims(token).getPayload());

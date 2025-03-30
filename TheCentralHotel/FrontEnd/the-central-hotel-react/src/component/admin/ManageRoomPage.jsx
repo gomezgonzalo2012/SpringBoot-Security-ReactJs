@@ -12,6 +12,7 @@ const  ManageRoomPage= ()=> {
     const [selectedRoomType, setSelecteRoomType] = useState(null)
     const [currentPage, setCurrentPage] = useState(1)
     const [roomsPerPage, setRoomsPerPage ] = useState(5)
+    
     useEffect(()=>{
             const fetchRooms = async () => {
                 try {

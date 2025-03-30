@@ -2,8 +2,11 @@ import React from 'react'
 import APIService from '../../service/APIService'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toastSuccess, toastWarning } from '../../service/ToastService';
+
 
 function AddRoomPage() {
+    const MAXIMO_TAMANIO_BYTES = 500000; 
     const navigate = useNavigate()
 
     const [roomDetails, setRoomDetails] = useState({
@@ -58,13 +61,32 @@ function AddRoomPage() {
 
     const handleFileChange = (e)=>{
         const selectedFile = e.target.files[0]
+        
         if(selectedFile){
-            setFile(selectedFile)
-            setImagePreview(URL.createObjectURL(selectedFile))
+            const isOk = verifyFileSize(selectedFile)
+            if(isOk){
+                setFile(selectedFile)
+                setImagePreview(URL.createObjectURL(selectedFile))
+            }else{
+                setFile(null)
+                setImagePreview(null)
+                e.target.value = "" // limpia el input (necesario)   
+            }     
+              
         }else{
             setFile(null)
             setImagePreview(null)
         }
+    }
+    const verifyFileSize=(file) =>{
+        if (file.size > MAXIMO_TAMANIO_BYTES) {
+            const tamanioEnMb = MAXIMO_TAMANIO_BYTES / 1000000;
+            toastWarning(`El tamaño máximo es ${tamanioEnMb} MB`);
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
     const addRoom = async ()=>{
@@ -88,7 +110,7 @@ function AddRoomPage() {
 
             const result = await APIService.addRoom(formData)
             if(result.statusCode === 200){
-                setSuccess("Room added successfully.")
+                toastSuccess("Room added successfully.")
 
                 setTimeout(()=>{
                     setSuccess("")

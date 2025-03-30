@@ -19,7 +19,6 @@ public class CloudinaryConfig {
     @Value("${cloudinary.api-secret}")
     private String secretKey;
 
-
     @Bean
     public Cloudinary cloudinary(){
         return new Cloudinary(ObjectUtils.asMap(

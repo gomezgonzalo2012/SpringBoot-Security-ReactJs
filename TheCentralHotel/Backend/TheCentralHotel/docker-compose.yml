@@ -1,0 +1,34 @@
+services:
+  the_central_db:
+    image: mysql:8.3.0
+    environment: 
+      - MYSQL_ROOT_PASSWORD=42742379
+      - MYSQL_DATABASE=the_central
+    ports:
+      - "3307:3306"
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+  checentralhotel:
+    build:
+      dockerfile: deploy.Dockerfile
+      context: .
+    restart: always
+    depends_on:
+      the_central_db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - DB_URL=jdbc:mysql://the_central_db:3306/the_central?createDatabaseIfNotExist=true&serverTimezone=UTC
+      - DB_USER_NAME=root
+      - DB_PASSWORD=42742379
+      - CLOUDINARY_HOST_NAME=gonza42742
+      - CLOUDINARY_API_SECRET=jn9vyusi_RkYIvQ1_jIgeZ3JS6U
+      - CLOUDINARY_API_KEY=672227968744658
+
+    

@@ -6,6 +6,7 @@ const LoginPage =() => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
+    const [isShowPassword, setIsShowPassword] = useState(true)
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -33,6 +34,7 @@ const LoginPage =() => {
 
         }
     }
+    
   return (
       <div className="auth-container">
           <h2>Login</h2>
@@ -47,10 +49,13 @@ const LoginPage =() => {
               </div>
               <div className="form-group">
                   <label >Password: </label>
-                  <input type="password"
+                  <input type={isShowPassword ? "password" : "text"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required />
+              </div>
+              <div style={{marginBottom: 15, display: "flex"}}>
+                <input type="checkbox" style ={{marginRight : 10}} onClick={()=>setIsShowPassword(!isShowPassword)}/>show password
               </div>
               <button type='submit'>Login</button>
           </form>

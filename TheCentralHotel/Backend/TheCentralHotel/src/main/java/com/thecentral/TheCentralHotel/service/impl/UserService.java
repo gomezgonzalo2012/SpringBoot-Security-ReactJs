@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -74,6 +75,9 @@ public class UserService implements IUserService {
             response.setStatusCode(404);
             response.setMessage(ex.getMessage());
 
+        } catch (BadCredentialsException ex) {
+            response.setStatusCode(500);
+            response.setMessage("Incorrect password or email ");
         }
         catch (Exception ex) {
             response.setStatusCode(500);

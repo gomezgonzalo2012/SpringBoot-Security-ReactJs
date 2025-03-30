@@ -47,14 +47,14 @@ const  HomePage = ()=>  {
                 </div>
             </div>
             <div className="service-card">
-                <img src="./assets/images/mini-bar.png" alt="Mini Bar" />
+                <img src="./assets/images/minibar.png" alt="Mini Bar" />
                 <div className="service-details">
                     <h3 className="service-title"> Mini Bar</h3>
                     <p className="service-description">Stay cool and comfortable throughout your stay with our individually controlled in-room air conditioning. </p>
                 </div>
             </div>
             <div className="service-card">
-                <img src="./assets/images/parking.png" alt="Parking" />
+                <img src="./assets/images/estacionamiento.png" alt="Parking" />
                 <div className="service-details">
                     <h3 className="service-title"> Parking</h3>
                     <p className="service-description">Stay cool and comfortable throughout your stay with our individually controlled in-room air conditioning. </p>
